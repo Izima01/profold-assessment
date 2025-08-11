@@ -13,7 +13,6 @@ testlogs
 endpoint-data
 
 # ENV & LOGS
-.env
 *.env
 *.logs
 
@@ -21,3 +20,4 @@ endpoint-data
 .DS_Store
 
 test.rest
+config.bat

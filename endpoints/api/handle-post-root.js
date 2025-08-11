@@ -91,7 +91,7 @@ module.exports = createHandler({
         data: {
           request,
           response: {
-            http_status: res.statusCode,
+            http_status: helpers.http_statuses.HTTP_200_OK,
             duration: logData.reqline.endTime - logData.reqline.startTime,
             request_start_timestamp: logData.reqline.startTime,
             request_stop_timestamp: logData.reqline.endTime,
