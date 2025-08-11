@@ -6,7 +6,7 @@ const { throwAppError } = require('@app-core/errors');
  *
  * Returns parsed object or throws with a helpful message.
  */
-module.exports = (selectPart, partName) => {
+const parseObjectParts = (selectPart, partName) => {
   if (!selectPart) return;
 
   if (!selectPart.includes(partName) || !selectPart.toLowerCase().includes(partName.toLowerCase()))
@@ -56,3 +56,5 @@ module.exports = (selectPart, partName) => {
     throwAppError(`Invalid JSON format in ${partName} section`, 400);
   }
 };
+
+module.exports = parseObjectParts;

@@ -1,6 +1,6 @@
 const { throwAppError } = require('@app-core/errors');
 
-module.exports = (urlPart) => {
+const parseUrlParts = (urlPart) => {
   const splitUrlPart = urlPart.split(' ');
   const urlKeyword = splitUrlPart[0];
   const url = splitUrlPart[1];
@@ -29,3 +29,5 @@ module.exports = (urlPart) => {
 
   return url;
 };
+
+module.exports = parseUrlParts;

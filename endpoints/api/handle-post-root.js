@@ -3,9 +3,9 @@ const { TimeLogger } = require('@app-core/logger');
 const { createHandler } = require('@app-core/server');
 const HttpRequest = require('@app-core/http-request');
 
-const parseMethod = require('../../services/api/parseMethod');
-const parseUrlPart = require('../../services/api/parseUrlPart');
-const parseObjectParts = require('../../services/api/parseObjectParts');
+const parseMethod = require('../../services/api/parse-method');
+const parseUrlPart = require('../../services/api/parse-url-parts');
+const parseObjectParts = require('../../services/api/parse-object-parts');
 
 function findPart(array, key) {
   return array.find((part) => part.toLowerCase().includes(key));

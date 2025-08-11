@@ -1,12 +1,6 @@
 const { throwAppError } = require('@app-core/errors');
 
-/**
- * Parse the HEADERS part of a reqline statement.
- * Expected form (strict): "HEADERS { ...json... }"
- *
- * Returns parsed object or throws with a helpful message.
- */
-module.exports = (headersPart) => {
+const parseHeaders = (headersPart) => {
   if (!headersPart) return;
 
   const splitHeadersPart = headersPart.split(' ');
@@ -43,3 +37,5 @@ module.exports = (headersPart) => {
     throwAppError(`Invalid JSON format in HEADERS section`, 400);
   }
 };
+
+module.exports = parseHeaders;

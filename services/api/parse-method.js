@@ -1,6 +1,6 @@
 const { throwAppError } = require('@app-core/errors');
 
-module.exports = (methodPart) => {
+const parseMethod = (methodPart) => {
   const splitMethodPart = methodPart.split(' ');
   const httpKeyword = splitMethodPart[0];
   const httpMethod = splitMethodPart[1];
@@ -33,3 +33,5 @@ module.exports = (methodPart) => {
 
   return { httpKeyword, httpMethod };
 };
+
+module.exports = parseMethod;
