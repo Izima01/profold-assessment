@@ -8,18 +8,18 @@ module.exports = (methodPart) => {
   const indexOfURL = methodPart.indexOf('HTTP');
   const hasSpaceAfterHTTP = methodPart[indexOfURL + 4] === ' ';
 
+  // Checking capitalization or no httpword
+  if (httpKeyword.toUpperCase() !== 'HTTP') {
+    throwAppError('Missing required HTTP keyword', 400);
+  } else if (httpKeyword !== httpKeyword.toUpperCase()) {
+    throwAppError('Keywords must be uppercase', 400);
+  }
+
   // Checking adequate spacing
   if (splitMethodPart.length > 2) {
     throwAppError('Multiple spaces found where single space expected', 400);
   } else if (!hasSpaceAfterHTTP) {
-    throwAppError(`Missing space after keyword: ${httpKeyword}`, 400);
-  }
-
-  // Checking capitalization or no httpword
-  else if (httpKeyword.toUpperCase() !== 'HTTP') {
-    throwAppError('Missing required HTTP keyword', 400);
-  } else if (httpKeyword !== httpKeyword.toUpperCase()) {
-    throwAppError('Keywords must be uppercase', 400);
+    throwAppError(`Missing space after keyword`, 400);
   }
 
   // Checking the method

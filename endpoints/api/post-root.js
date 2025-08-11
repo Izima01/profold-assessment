@@ -23,7 +23,18 @@ module.exports = createHandler({
       throwAppError('No REQLINE statement', 400);
     }
 
+    if (!payload.toLowerCase().includes('http')) {
+      throwAppError('Missing required HTTP keyword', 400);
+    }
+    if (!payload.toLowerCase().includes('url')) {
+      throwAppError('Missing required URL keyword', 400);
+    }
+
     const [methodPart, urlPart, ...rest] = payload.split(' | ');
+
+    if (methodPart.includes('URL') || urlPart.includes('HTTP')) {
+      throwAppError('HTTP and URL in wrong order', 400);
+    }
 
     // Making sure only one space around each delimiter
     const isExtraSpaceAroundAnyDelimiter = [methodPart, urlPart, ...rest].some(
@@ -39,6 +50,10 @@ module.exports = createHandler({
     // Parsing the method part
     const { httpMethod } = parseMethod(methodPart);
     const url = parseUrlPart(urlPart);
+
+    if (!url) {
+      throwAppError('Missing required URL keyword', 502);
+    }
 
     const { query, queryStr } = parseObjectParts(findPart(rest, 'query'), 'QUERY');
     const headers = parseObjectParts(findPart(rest, 'headers'), 'HEADERS');
@@ -70,7 +85,7 @@ module.exports = createHandler({
     end('reqline');
     const logData = getLogData();
     return {
-      status: helpers.http_statuses.HTTP_201_CREATED,
+      status: helpers.http_statuses.HTTP_200_OK,
       data: {
         request,
         response: {
