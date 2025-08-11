@@ -5,9 +5,7 @@ const HttpRequest = require('@app-core/http-request');
 
 const parseMethod = require('../../services/api/parseMethod');
 const parseUrlPart = require('../../services/api/parseUrlPart');
-const parseQuery = require('../../services/api/parseQuery');
-const parseHeaders = require('../../services/api/parseHeaders');
-const parseBody = require('../../services/api/parseBody');
+const parseObjectParts = require('../../services/api/parseObjectParts');
 
 function findPart(array, key) {
   return array.find((part) => part.toLowerCase().includes(key));
@@ -42,9 +40,9 @@ module.exports = createHandler({
     const { httpMethod } = parseMethod(methodPart);
     const url = parseUrlPart(urlPart);
 
-    const { query, queryStr } = parseQuery(findPart(rest, 'query'));
-    const headers = parseHeaders(findPart(rest, 'headers'));
-    const body = parseBody(findPart(rest, 'body'));
+    const { query, queryStr } = parseObjectParts(findPart(rest, 'query'), 'QUERY');
+    const headers = parseObjectParts(findPart(rest, 'headers'), 'HEADERS');
+    const body = parseObjectParts(findPart(rest, 'body'), 'BODY');
     console.log({ headers, query, body });
 
     const fullUrl = queryStr ? `${url}${queryStr}` : url;
