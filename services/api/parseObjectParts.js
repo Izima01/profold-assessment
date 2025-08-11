@@ -9,6 +9,9 @@ const { throwAppError } = require('@app-core/errors');
 module.exports = (selectPart, partName) => {
   if (!selectPart) return;
 
+  if (!selectPart.includes(partName) || !selectPart.toLowerCase().includes(partName.toLowerCase()))
+    return;
+
   const splitSelectPart = selectPart.split(' ');
   const partKeyword = splitSelectPart[0];
 
@@ -16,7 +19,6 @@ module.exports = (selectPart, partName) => {
     selectPart.indexOf(partName) === -1
       ? selectPart.toLowerCase().indexOf(partName.toLowerCase())
       : selectPart.indexOf(partName);
-  console.log({ indexOfPartKeyword });
 
   const hasSpaceAfterKeyword = selectPart[indexOfPartKeyword + partName.length] === ' ';
   const partString = selectPart.slice(indexOfPartKeyword + partName.length + 1);
